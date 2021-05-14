@@ -1,0 +1,2343 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+
+  
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\date{}
+
+\begin{document}
+
+\section{\texorpdfstring{\textbf{UNIX Systems
+Programming}}{UNIX Systems Programming}}\label{header-n0}
+
+Spring 2021
+
+\tableofcontents
+
+\section{\texorpdfstring{\textbf{1. C
+Programming}}{1. C Programming}}\label{header-n7}
+
+\subsection{\texorpdfstring{\textbf{File
+I/O}}{File I/O}}\label{header-n8}
+
+\begin{itemize}
+\item
+  Opening files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FILE *fopen(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *path, }\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *mode);}
+\CommentTok{// r: 	reading. Stream positioned at beginning.}
+\CommentTok{// r+: read/write. Stream positioned at beginning.}
+\CommentTok{// w: 	write. Create or truncate.}
+\CommentTok{// w+: read/write. Create or truncate}
+\CommentTok{// a: 	append. a+: append and read.}
+\CommentTok{// Created files all have default permissions:}
+\DecValTok{0666}\NormalTok{;}
+\NormalTok{S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Closing files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ fclose(FILE *fp);}
+\CommentTok{// Return value: 0 for success}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Character input
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ getc (FILE *fp);		}\CommentTok{// May be a “macro”}
+\DataTypeTok{int}\NormalTok{ fgetc (FILE *fp); 		}\CommentTok{// Must be function}
+\DataTypeTok{int}\NormalTok{ getchar(}\DataTypeTok{void}\NormalTok{);			}\CommentTok{// get from stdin}
+\CommentTok{// Return character or EOF}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Character output
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Character output}
+\DataTypeTok{int}\NormalTok{ putc (}\DataTypeTok{int}\NormalTok{ c, FILE *fp); 	}\CommentTok{// May be a macro}
+\DataTypeTok{int}\NormalTok{ fputc (}\DataTypeTok{int}\NormalTok{ c, FILE *fp);	}\CommentTok{// Must be function}
+\DataTypeTok{int}\NormalTok{ putchar(}\DataTypeTok{int}\NormalTok{ c);				}\CommentTok{// Put to stdout}
+\CommentTok{// Return character or EOF}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Line input
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{char}\NormalTok{ *gets(}\DataTypeTok{char}\NormalTok{ *buf);}
+\CommentTok{// buf will not include the new-line character.}
+\CommentTok{// caller has to make sure that the buffer is large enough.}
+\CommentTok{// Removed in C11 (but gcc hasn't done so yet)}
+\DataTypeTok{char}\NormalTok{ *fgets(}\DataTypeTok{char}\NormalTok{ *buf, }\DataTypeTok{int}\NormalTok{ count, FILE *fp);}
+\CommentTok{// buf will include the new-line character if it fits.}
+\DataTypeTok{ssize_t}\NormalTok{ getline(}\DataTypeTok{char}\NormalTok{ **lineptr, }\DataTypeTok{size_t}\NormalTok{ *n, FILE *stream);}
+\CommentTok{//n is the size of the buffer, not the length of the line. It includes a count}
+\CommentTok{// for any newline, but not for a null character.}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Line output
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ fputs(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *buf, FILE *fp);	}\CommentTok{// Does not append a newline character}
+\DataTypeTok{int}\NormalTok{ puts(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *buf); 				}\CommentTok{// Appends a newline character}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Reading a file line-by-line
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \DataTypeTok{char}\NormalTok{ *line = NULL;}
+    \DataTypeTok{size_t}\NormalTok{ line_len = }\DecValTok{0}\NormalTok{;}
+    \ControlFlowTok{while}\NormalTok{ (getline(&line, &line_len, stdin) > }\DecValTok{-1}\NormalTok{) \{}
+\NormalTok{	    printf(}\StringTok{"%p: %s"}\NormalTok{, line, line);}
+\NormalTok{    \}}
+\NormalTok{    free(line);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Heap}}{Heap}}\label{header-n32}
+
+\begin{itemize}
+\item
+  There isn't any \texttt{new} / \texttt{delete}. Heap space is
+  allocated with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ *malloc(}\DataTypeTok{size_t}\NormalTok{ size)}
+\CommentTok{// Does not zero}
+\DataTypeTok{void}\NormalTok{ *realloc(}\DataTypeTok{void}\NormalTok{ *ptr, }\DataTypeTok{size_t}\NormalTok{ newsize)}
+\CommentTok{// Does not zero}
+\CommentTok{// Will literally extend the space if possible.}
+\CommentTok{// Will handle copying to a larger memory block if could not extend.}
+\DataTypeTok{void}\NormalTok{ *calloc(}\DataTypeTok{size_t}\NormalTok{ nobj, }\DataTypeTok{size_t}\NormalTok{ size)}
+\CommentTok{// Does zero. Note this is the only one that does.}
+\end{Highlighting}
+\end{Shaded}
+
+  Heap space is freed with
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ free(}\DataTypeTok{void}\NormalTok{ *ptr) }\CommentTok{// No error value to check for}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Parameter
+passing}}{Parameter passing}}\label{header-n40}
+
+\begin{itemize}
+\item
+  All parameter passing is by value. There is no pass by reference. But
+  some people describe passing a pointer as ``pass by reference''.
+\item
+  Swapping pointers:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// To swap pointers, we change the location that a and b point to}
+\DataTypeTok{void}\NormalTok{ swapPtrThree(}\DataTypeTok{int}\NormalTok{ **a, }\DataTypeTok{int}\NormalTok{ **b) \{}
+    \DataTypeTok{int}\NormalTok{ *tmp = *a;}
+\NormalTok{    *a = *b;}
+\NormalTok{    *b = tmp;}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \CommentTok{// ...}
+\NormalTok{    swapPtrThree(&p, &q);}
+\NormalTok{    printf(}\StringTok{"After swapPtrThree:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{    display(x, y, p, q);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  What if your function is not expecting any arguments?
+
+  \begin{quote}
+  Specify void in the parameter list! Otherwise C will allow arguments
+  to be passed!`
+  \end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ foo() \{}
+\NormalTok{    puts(}\StringTok{"Hello world"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{void}\NormalTok{ bar(}\DataTypeTok{void}\NormalTok{) \{}
+\NormalTok{    puts(}\StringTok{"Hello world"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    foo();}
+\NormalTok{    foo(}\DecValTok{17}\NormalTok{); 	}\CommentTok{// Will compile!}
+\NormalTok{    bar(}\DecValTok{17}\NormalTok{); 	}\CommentTok{// Will not compile!}
+    \ControlFlowTok{return} \DecValTok{0}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  C passes functions using function pointers.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// Some function’s definition:}
+\DataTypeTok{void}\NormalTok{ doNothing(}\DataTypeTok{void}\NormalTok{) \{\}}
+
+\DataTypeTok{void}\NormalTok{ takesFunction( }\DataTypeTok{void}\NormalTok{ (*fp)(}\DataTypeTok{void}\NormalTok{) ) \{}
+\NormalTok{    (*fp)(); 	}\CommentTok{// “official” way}
+\NormalTok{    fp();     	}\CommentTok{// also accepted}
+\NormalTok{    *fp();		}\CommentTok{// Oops! dereferences return value}
+\NormalTok{\}}
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{	takesFunction(doNothing);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Casting}}{Casting}}\label{header-n56}
+
+\begin{itemize}
+\item
+  In C, to cast a value x to a type T:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(T)x}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Errors}}{Errors}}\label{header-n62}
+
+\begin{itemize}
+\item
+  For a readable error message, you can call
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// Prints your message, if any, followed by a description of the error}
+\DataTypeTok{void}\NormalTok{ perror(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *msg); }
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Environment}}{Environment}}\label{header-n68}
+
+\begin{itemize}
+\item
+  Every process has a set of ``environment'' variables set up by the
+  process's creator. They are located above the call stack.
+\item
+  You can see them with the command: \texttt{env}
+
+\begin{verbatim}
+env -i [name=value] ... [utility [arg ...]]
+# -i says to ignore inherited environment
+# Otherwise only replace specified names
+# If no utility is provided, displays the resulting environment
+\end{verbatim}
+\item
+  Displaying the environment
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{extern} \DataTypeTok{char}\NormalTok{ **environ;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ index = }\DecValTok{0}\NormalTok{; environ[index] != NULL; ++index) \{}
+\NormalTok{    	puts(environ[index]);}
+\NormalTok{    \}}
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{char}\NormalTok{ **p = environ; *p != NULL; ++p) \{}
+\NormalTok{        puts(*p);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Static local
+variables}}{Static local variables}}\label{header-n79}
+
+\begin{itemize}
+\item
+  Static local variables remember their values between calls.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ * increment.c}
+\CommentTok{ * Demonstrates a static local variable.}
+\CommentTok{ */}
+\DataTypeTok{int}\NormalTok{ increment() \{}
+    \CommentTok{// the lifetime is from you first use it, up until the end of the}
+    \CommentTok{// program (as opposed to up until the end of the function)}
+    \DataTypeTok{static} \DataTypeTok{int}\NormalTok{ value = }\DecValTok{17}\NormalTok{;}
+
+    \CommentTok{// it has a post-increment so it's gonna return 17 the first time}
+    \CommentTok{// it's called}
+    \ControlFlowTok{return}\NormalTok{ value++;}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < }\DecValTok{10}\NormalTok{; ++i) \{}
+\NormalTok{        printf(}\StringTok{"%d "}\NormalTok{, increment());}
+\NormalTok{    \}}
+\NormalTok{    printf(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{extern}
+}{extern }}\label{header-n86}
+
+\begin{itemize}
+\item
+  We've talked about \texttt{extern} variables before in the context of
+  environment variables. Let's take another look at them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/* }
+\CommentTok{ * extern.c}
+\CommentTok{ * If built by itself, this would be a linkage error. }
+\CommentTok{ * Needs a file that provides a definition of x.}
+\CommentTok{ */}
+
+\PreprocessorTok{#include }\ImportTok{<stdio.h>}
+
+\KeywordTok{extern} \DataTypeTok{int}\NormalTok{ x;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    printf(}\StringTok{"x: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, x);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Here, we tell the compiler that we're looking at
+  \texttt{extern\ int\ x} somewhere else.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ * define.X.c}
+\CommentTok{ * Provides a definition for the varable x}
+\CommentTok{ */}
+
+\DataTypeTok{int}\NormalTok{ x = }\DecValTok{17}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+\item
+  So for example, if we compile it with the above program,
+  \texttt{defineX.c}there are no linkage errors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ * nostatic.c}
+\CommentTok{ */}
+
+\PreprocessorTok{#include }\ImportTok{<stdio.h>}
+
+\DataTypeTok{int}\NormalTok{ x = }\DecValTok{42}\NormalTok{;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    printf(}\StringTok{"x: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, x);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{static}}{static}}\label{header-n98}
+
+\begin{itemize}
+\item
+  When built alone, this of course works fine. When linked with
+  compilation of \texttt{defineX.c} will result in a linkage error as
+  \texttt{x} is double defined. Note that there is no conflict when
+  \texttt{x} is \texttt{static}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ * static.c}
+\CommentTok{ */}
+
+\PreprocessorTok{#include }\ImportTok{<stdio.h>}
+
+\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ x = }\DecValTok{42}\NormalTok{;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    printf(}\StringTok{"x: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, x);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  We've seen \texttt{static} before but in local variables which are
+  treated with global lifetime. Here, we say that \texttt{x} is global
+  but when compiled with \texttt{defineX.c} there is no linkage error so
+  its definition is not visible or in conflict with any other file's.
+  The version of \texttt{defineX.c} is ignored.
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Struct}}{Struct}}\label{header-n106}
+
+\begin{itemize}
+\item
+  Structs are in a different ``namespace'' than variables and functions.
+  This allows you to have a variable and a struct with the same name.
+  (Good idea?) It requires that you say that a type is a struct
+  everywhere you use it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{struct}\NormalTok{ MyStruct \{}
+    \DataTypeTok{int}\NormalTok{ x;}
+    \DataTypeTok{int}\NormalTok{ y;}
+\NormalTok{\};}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \KeywordTok{struct}\NormalTok{ MyStruct mine;}
+\NormalTok{    mine.x = }\DecValTok{42}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{typedef}}{typedef}}\label{header-n111}
+
+\begin{itemize}
+\item
+  C programmers and C libraries seem to prefer the more verbose approach
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typedef} \KeywordTok{struct}\NormalTok{ MyStruct \{}
+    \DataTypeTok{int}\NormalTok{ x;}
+    \DataTypeTok{int}\NormalTok{ y;}
+\NormalTok{\} YourStruct;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \KeywordTok{struct}\NormalTok{ MyStruct mine;}
+\NormalTok{    mine.x = }\DecValTok{42}\NormalTok{;}
+\NormalTok{    YourStruct yours;}
+\NormalTok{    yours.x = }\DecValTok{17}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Macros}}{Macros}}\label{header-n117}
+
+\begin{itemize}
+\item
+  A macro is a piece of code in a program that is replaced by the value
+  of the macro. Macro is defined by \texttt{\#define} directive.
+  Whenever a macro name is encountered by the compiler, it replaces the
+  name with the definition of the macro.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// Macro definition}
+\PreprocessorTok{#define LIMIT 5}
+
+\CommentTok{// Print the value of macro defined}
+\NormalTok{printf(}\StringTok{"The value of LIMIT is %d"}\NormalTok{, LIMIT);}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Some catches:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#define square(x) x * x}
+\NormalTok{square(}\DecValTok{5}\NormalTok{); 		}\CommentTok{// 5 * 5}
+\NormalTok{square(}\DecValTok{1}\NormalTok{+}\DecValTok{1}\NormalTok{);	}\CommentTok{// 1 + 1 * 1 + 1}
+
+\PreprocessorTok{#define square(x) ((x) * (x))}
+\NormalTok{square(++a); 	}\CommentTok{// ((++a) * (++a))}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Long
+jump}}{Long jump}}\label{header-n126}
+
+\begin{itemize}
+\item
+  What if you want to ``bail out'' of a function and jump somewhere ``up
+  the call stack''? For example, \texttt{main} called \texttt{foo},
+  \texttt{foo} called \texttt{bar} and \texttt{bar} called
+  \texttt{felix}. Now you want to return (perhaps due to an error) all
+  the way back to some line in \texttt{main}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ setjmp(jmp_buf env);}
+\CommentTok{// saves the current environment into the variable environment for later use}
+\CommentTok{// If this macro returns directly from the macro invocation, it returns zero }
+\CommentTok{// but if it returns from a longjmp() function call, then it returns the value}
+\CommentTok{// passed to longjmp as a second argument.}
+
+\DataTypeTok{void}\NormalTok{ longjmp(jmp_buf env, }\DataTypeTok{int}\NormalTok{ value);}
+\CommentTok{// restores the environment saved by the most recent call to setjmp() macro in}
+\CommentTok{// the same invocation of the program with the corresponding jmp_buf argument.}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Example
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ main () \{}
+   \DataTypeTok{int}\NormalTok{ val;}
+\NormalTok{   jmp_buf env_buffer;}
+
+   \CommentTok{/* save calling environment for longjmp */}
+\NormalTok{   val = setjmp( env_buffer );}
+   
+   \ControlFlowTok{if}\NormalTok{( val != }\DecValTok{0}\NormalTok{ ) \{}
+\NormalTok{      printf(}\StringTok{"Returned from a longjmp() with value = %s}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, val);}
+\NormalTok{      exit(}\DecValTok{0}\NormalTok{);}
+\NormalTok{   \}}
+   
+\NormalTok{   printf(}\StringTok{"Jump function call}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{   jmpfunction( env_buffer );}
+   
+   \ControlFlowTok{return}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{void}\NormalTok{ jmpfunction(jmp_buf env_buf) \{}
+\NormalTok{   longjmp(env_buf, }\StringTok{"tutorialspoint.com"}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Output:
+
+\begin{verbatim}
+$ longjump
+Jump function call
+Returned from a longjmp() with value = tutorialspoint.com
+\end{verbatim}
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{2.
+Processes}}{2. Processes}}\label{header-n138}
+
+\begin{itemize}
+\item
+  A \textbf{process} is an instance of an executing program. A
+  \textbf{program} is a file containing a range of information that
+  describes how to construct a process at run time. One program may be
+  used to construct many processes, or, put conversely, many processes
+  may be running the same program.
+\item
+  We can re-define the definition of a process given at the start of
+  this section as follows: a \textbf{process} is an abstract entity,
+  defined by the kernel, to which system resources are allocated in
+  order to execute a program. From the kernel's point of view, a process
+  consists of
+
+  \begin{itemize}
+  \item
+    user-space memory containing program code and variables used by that
+    code, and 
+  \item
+    a range of kernel data structures that maintain information about
+    the state of the process. 
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Memory
+Layout}}{Memory Layout}}\label{header-n150}
+
+\begin{itemize}
+\item
+  The memory allocated to each process is composed of a number of parts,
+  usually referred to as segments. These segments are as follows:
+
+  \begin{itemize}
+  \item
+    The \textbf{text segment} contains the machine-language instructions
+    of the program run by the process. 
+  \item
+    The \textbf{initialized data segment} contains global and static
+    variables that are explicitly initialized. 
+  \item
+    The \textbf{uninitialized data segment} contains global and static
+    variables that are not explicitly initialized. 
+  \item
+    The \textbf{stack} is a dynamically growing and shrinking segment
+    containing stack frames. One stack frame is allocated for each
+    currently called function. A frame stores the function's local
+    variables (so-called automatic variables), arguments, and return
+    value. 
+  \item
+    The \textbf{heap} is an area from which memory (for variables) can
+    be dynamically allocated at run time.
+  \end{itemize}
+\item
+  The following shows various types of C variables along with comments
+  indicating in which segment each variable is located.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{char}\NormalTok{ globBuf[}\DecValTok{65536}\NormalTok{];			}\CommentTok{/* Uninitialized data segment */}
+\DataTypeTok{int}\NormalTok{ primes[] = \{}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{\};	}\CommentTok{/* Initialized data segment */}
+
+\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ square(}\DataTypeTok{int}\NormalTok{ x) \{		}\CommentTok{/* Allocated in frame for square() */}
+    \DataTypeTok{int}\NormalTok{ result;					}\CommentTok{/* Allocated in frame for square() */}
+    
+\NormalTok{    result = x * x;}
+    \ControlFlowTok{return}\NormalTok{ result;				}\CommentTok{/* Return value passed via register */}
+\NormalTok{\}}
+
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ doCalc(}\DataTypeTok{int}\NormalTok{ val) \{ 	}\CommentTok{/* Allocated in frame for doCalc() */}
+\NormalTok{    printf(}\StringTok{"The square of %d is %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, val, square(val));}
+    
+    \ControlFlowTok{if}\NormalTok{ (val < }\DecValTok{1000}\NormalTok{) \{}
+    	\DataTypeTok{int}\NormalTok{ t;					}\CommentTok{/* Allocated in frame for doCalc() */}
+\NormalTok{		t = val * val * val;}
+\NormalTok{		printf(}\StringTok{"The cube of %d is %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, val, t);}
+\NormalTok{	\}}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main(}\DataTypeTok{int}\NormalTok{ argc, }\DataTypeTok{char}\NormalTok{ *argv[]) \{	}\CommentTok{/* Allocated in frame for main() */}
+    \DataTypeTok{static} \DataTypeTok{int}\NormalTok{ key = }\DecValTok{9973}\NormalTok{;			}\CommentTok{/* Initialized data segment */}
+    \DataTypeTok{static} \DataTypeTok{char}\NormalTok{ mbuf[}\DecValTok{10240000}\NormalTok{];		}\CommentTok{/* Uninitialized data segment */}
+    \DataTypeTok{char}\NormalTok{ *p;						}\CommentTok{/* Allocated in frame for main() */}
+    
+\NormalTok{    p = malloc(}\DecValTok{1024}\NormalTok{);				}\CommentTok{/* Points to memory in heap segment */}
+    
+\NormalTok{    doCalc(key);}
+\NormalTok{	exit(EXIT_SUCCESS);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  The following diagram shows the arrangement of the various memory
+  segments on the \texttt{x86-32} architecture.
+
+  \begin{figure}
+  \centering
+  \includegraphics{/home/gerardo/.config/Typora/typora-user-images/image-20210219134103202.png}
+  \caption{}
+  \end{figure}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Environment
+}}{Environment }}\label{header-n172}
+
+\begin{itemize}
+\item
+  Each process has an associated array of strings called the
+  \textbf{environment list}, or simply the \textbf{environment}. Each of
+  these strings is a definition of the form \texttt{name=value}. Thus,
+  the environment represents a set of name-value pairs that can be used
+  to hold arbitrary information. When a new process is created, it
+  inherits a copy of its parent's environment. This is a primitive but
+  frequently used form of interprocess communication---the environment
+  provides a way to transfer information from a parent process to its
+  child(ren).
+\item
+  Within a C program, the environment list can be accessed using the
+  global variable \texttt{char\ **environ}. Like \texttt{argv},
+  \texttt{environ} points to a NULL-terminated list of pointers to
+  null-terminated strings. Figure 6 5 shows the environment list data
+  structures as they would appear for the environment displayed by the
+  \texttt{printenv} command above.
+
+  \begin{figure}
+  \centering
+  \includegraphics{/home/gerardo/.config/Typora/typora-user-images/image-20210222201124878.png}
+  \caption{}
+  \end{figure}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Command line
+Arguments}}{Command line Arguments}}\label{header-n180}
+
+\begin{itemize}
+\item
+  Every C program must have a function called \texttt{main()}, which is
+  the point where execution of the program starts. When the program is
+  executed, the command-line arguments (the separate words parsed by the
+  shell) are made available via two arguments to the function
+  \texttt{main()}. The first argument, \texttt{int\ argc}, indicates how
+  many command-line arguments there are. The second argument,
+  \texttt{char\ *argv{[}{]},} is an array of pointers to the
+  command-line arguments, each of which is a null-terminated character
+  string. \\
+  \includegraphics{/home/gerardo/.config/Typora/typora-user-images/image-20210222200402451.png?lastModify=1616612756}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Fork}}{Fork}}\label{header-n185}
+
+\begin{itemize}
+\item
+  A process can create a new process using the \texttt{fork()}system
+  call. The process that calls \texttt{fork()} is referred to as the
+  parent process, and the new process is referred to as the child
+  process. The kernel creates the child process by making a duplicate of
+  the parent process. The child inherits copies of the parent's data,
+  stack, and heap segments, which it may then modify independently of
+  the parent's copies. 
+\item
+  Testing the child fork:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    pid_t parent_pid = getpid();}
+\NormalTok{    printf(}\StringTok{"Parent id: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, parent_pid);}
+\NormalTok{    pid_t fork_pid = fork();}
+    
+    \ControlFlowTok{if}\NormalTok{ (fork_pid == }\DecValTok{-1}\NormalTok{)  perror(}\StringTok{"fork failed"}\NormalTok{);}
+    
+\NormalTok{    pid_t new_pid = getpid();}
+    
+    \ControlFlowTok{if}\NormalTok{ (parent_pid == new_pid) }
+\NormalTok{        printf(}\StringTok{"Yes, I (%d) am the parent & fork said %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, new_pid, fork_pid);}
+    \ControlFlowTok{else}
+\NormalTok{        printf(}\StringTok{"No, I (%d) am not the parent & fork said %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, new_pid, fork_pid);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Exec}}{Exec}}\label{header-n193}
+
+\subsection{\texorpdfstring{\textbf{Wait}}{Wait}}\label{header-n195}
+
+\begin{itemize}
+\item
+  Two major versions of wait:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// You call `wait()` to find out what the exit code of the process. }
+\CommentTok{// The return value is the process ID of the process.}
+\DataTypeTok{int}\NormalTok{ wait(}\DataTypeTok{int}\NormalTok{ * status);}
+
+\CommentTok{// This has the advantage to wait for a specific process ID. Also, }
+\CommentTok{// you can choose to not wait and you were just checking - `WNOHANG` }
+\CommentTok{// which makes it a non-blocking call}
+\DataTypeTok{int}\NormalTok{ waitPID(}\DataTypeTok{int}\NormalTok{ pid, }\DataTypeTok{int}\NormalTok{ * status, }\DataTypeTok{const}\NormalTok{ WNOHANG)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Do I have any children processes that have terminated? I will wait
+  until one of my children terminates. If I don't have any children,
+  that's an error and \texttt{wait()} will return a \texttt{-1}.if I
+  have children and none of them have terminated, \texttt{wait()} will
+  block. It's a simple way of synchronization. The return of
+  \texttt{wait()} will be the process id of the child that terminated.
+\item
+  Definition for wait:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pid_t wait(}\DataTypeTok{int}\NormalTok{ * stat_loc);}
+\end{Highlighting}
+\end{Shaded}
+
+  You pass in an \texttt{int} pointer, and if the \texttt{int} pointer
+  is \texttt{null}, then it means i don't care. Otherwise, the system
+  puts in the reason why it terminates (exit code, signals). The
+  structure of this will be covered another time.
+\item
+  Let' s see an example of wait
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<sys/wait.h>}\PreprocessorTok{	}\CommentTok{// wait()}
+
+\DataTypeTok{const} \DataTypeTok{int}\NormalTok{ N = }\DecValTok{3}\NormalTok{;		}\CommentTok{// Default}
+
+\DataTypeTok{int}\NormalTok{ main(}\DataTypeTok{int}\NormalTok{  argc, }\DataTypeTok{char}\NormalTok{* argv[]) \{}
+    \ControlFlowTok{if}\NormalTok{ (argc > }\DecValTok{2}\NormalTok{) \{}
+\NormalTok{        fprintf(stderr, }\StringTok{"Use: loopFork [count] }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{        exit(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+    
+    \CommentTok{// Allowing the default n to be overwritten.}
+    \DataTypeTok{int}\NormalTok{ n = (argc == }\DecValTok{1}\NormalTok{) ? N: atoi(argv[}\DecValTok{1}\NormalTok{]);}
+    
+    \CommentTok{// Print the process id}
+\NormalTok{    printf(}\StringTok{"pid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid());}
+    
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < n; ++i) \{}
+        \CommentTok{// If i'm the child, report who I am and who my parent is}
+        \ControlFlowTok{if}\NormalTok{ (fork() == }\DecValTok{0}\NormalTok{)}
+\NormalTok{            printf(}\StringTok{"pid: %d; ppid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  This is the output we see:
+
+\begin{verbatim}
+pid: 93913 
+pid: 93914; ppid: 93913
+pid: 93915; ppid: 93914
+pid: 93916; ppid: 93915
+pid: 93917; ppid: 93914
+pid: 93918; ppid: 93913
+pid: 93919; ppid: 93918
+pid: 93920; ppid: 93913
+\end{verbatim}
+
+  This is what the tree looks like (with only the last two digits
+  showing in the tree):
+
+  \begin{figure}
+  \centering
+  \includegraphics{/home/gerardo/.config/Typora/typora-user-images/image-20210311145056712.png}
+  \caption{}
+  \end{figure}
+
+  There are 8 or \(2^n\) total number of processes. If your goal was to
+  create \texttt{n} children, clearly you didn't do that. 
+\item
+  What if we wanted to achieve having a fan out of \texttt{n} children?
+  Here's a modification:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<sys/wait.h>}\PreprocessorTok{	}\CommentTok{// wait()}
+
+\DataTypeTok{const} \DataTypeTok{int}\NormalTok{ N = }\DecValTok{3}\NormalTok{;		}\CommentTok{// Default}
+
+\DataTypeTok{int}\NormalTok{ main(}\DataTypeTok{int}\NormalTok{  argc, }\DataTypeTok{char}\NormalTok{* argv[]) \{}
+    \ControlFlowTok{if}\NormalTok{ (argc > }\DecValTok{2}\NormalTok{) \{}
+\NormalTok{        fprintf(stderr, }\StringTok{"Use: loopFork [count] }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{        exit(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+    
+    \CommentTok{// Allowing the default n to be overwritten.}
+    \DataTypeTok{int}\NormalTok{ n = (argc == }\DecValTok{1}\NormalTok{) ? N: atoi(argv[}\DecValTok{1}\NormalTok{]);}
+    
+    \CommentTok{// Print the process id}
+\NormalTok{    printf(}\StringTok{"pid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid());}
+    
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < n; ++i) \{}
+        \ControlFlowTok{if}\NormalTok{ (fork() == }\DecValTok{0}\NormalTok{) \{}
+        	\ControlFlowTok{break}\NormalTok{; }
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{            wait(NULL);}
+\NormalTok{        \}}
+\NormalTok{    \}}
+    \CommentTok{// Report who I am and who my parent is after the loop}
+\NormalTok{	printf(}\StringTok{"pid: %d; ppid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Here's the output:
+
+\begin{verbatim}
+pid: 93943
+pid: 93944; ppid: 93943
+pid: 93945; ppid: 93943
+pid: 93946; ppid: 93943
+pid: 93943; ppid: 93942 # original process and parent (the shell itself)
+\end{verbatim}
+\item
+  What if we want a chain going down with \texttt{n} descendants?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<sys/wait.h>}\PreprocessorTok{	}\CommentTok{// wait()}
+
+\DataTypeTok{const} \DataTypeTok{int}\NormalTok{ N = }\DecValTok{3}\NormalTok{;		}\CommentTok{// Default}
+
+\DataTypeTok{int}\NormalTok{ main(}\DataTypeTok{int}\NormalTok{  argc, }\DataTypeTok{char}\NormalTok{* argv[]) \{}
+    \ControlFlowTok{if}\NormalTok{ (argc > }\DecValTok{2}\NormalTok{) \{}
+\NormalTok{        fprintf(stderr, }\StringTok{"Use: loopFork [count] }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{        exit(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+    
+    \CommentTok{// Allowing the default n to be overwritten.}
+    \DataTypeTok{int}\NormalTok{ n = (argc == }\DecValTok{1}\NormalTok{) ? N: atoi(argv[}\DecValTok{1}\NormalTok{]);}
+    
+    \CommentTok{// Print the process id}
+\NormalTok{    printf(}\StringTok{"pid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid());}
+    
+    \ControlFlowTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i < n; ++i) \{}
+        \ControlFlowTok{if}\NormalTok{ (fork() == }\DecValTok{0}\NormalTok{) \{}
+        	\CommentTok{// If you're the child, do your work, if you're the }
+            \CommentTok{// parent, terminate (returning to main) or just exit(0)}
+\NormalTok{			printf(}\StringTok{"pid: %d; ppid: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{            wait(}\DecValTok{0}\NormalTok{);}
+            \ControlFlowTok{return} \DecValTok{0}\NormalTok{;}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  The output:
+
+\begin{verbatim}
+pid: 94051
+pid: 94052; ppid: 94051
+pid: 94053; ppid: 94052
+pid: 94054; ppid: 94053
+\end{verbatim}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Exit}}{Exit}}\label{header-n225}
+
+\begin{itemize}
+\item
+  There are two exits. There is \texttt{exit()} which is a C call and
+  there is \texttt{\_exit()} which is a UNIX call. \texttt{exit()} calls
+  the lower level \texttt{\_exit()}call but before that, it flushes its
+  C stream buffers. After that, \texttt{\_exit()} closes its file
+  descriptors like standard out file and makes sure that all those get
+  written out.
+\item
+  \texttt{exit()} flushes the standard I/O buffers, file streams. The C
+  library \texttt{exit()} calls the UNIX call \texttt{\_exit()} which
+  makes sure that all the UNIX file descriptors are all properly written
+  out.
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Orphans
+}}{Orphans }}\label{header-n232}
+
+\begin{itemize}
+\item
+  An example of \texttt{fork()} involving orphans:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pid_t parent_pid = getpid();}
+\NormalTok{printf(}\StringTok{"Parent id: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, parent_pid);}
+
+\NormalTok{pid_t fork_pid = fork();}
+\ControlFlowTok{if}\NormalTok{ (fork_pid < }\DecValTok{0}\NormalTok{) \{}
+    \CommentTok{// Error checking}
+\NormalTok{    perror(}\StringTok{"fork failed!"}\NormalTok{);}
+\NormalTok{    exit(}\DecValTok{1}\NormalTok{);}
+\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (fork_pid > }\DecValTok{0}\NormalTok{) \{}
+    \CommentTok{// If you're the parent, wait a little bit and terminate}
+\NormalTok{    sleep(}\DecValTok{3}\NormalTok{);}
+\NormalTok{    exit(}\DecValTok{0}\NormalTok{);}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+    \CommentTok{// You are the child process}
+\NormalTok{    printf(}\StringTok{"I am the child (%d). My parent is %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+
+    \CommentTok{// Waiting for the parent to terminate - the only way you get}
+    \CommentTok{// a different parent is if your parent terminates and you get}
+    \CommentTok{// adopted by init}
+    \ControlFlowTok{while}\NormalTok{ (getppid() == parent_pid) sleep(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    printf(}\StringTok{"Now I (%d) am an orphan! (Woe is me!)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{    printf(}\StringTok{"But I was adopted and my parent is %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  The output:
+
+\begin{verbatim}
+Parent id: 93846
+I am the child (93848). My aparent is 93846
+Now I (93848) am an orphan! (Woe is me!)
+But I was adopted and my parent is 1
+\end{verbatim}
+\item
+  There is a special process, \texttt{init()} that is the first process.
+  All orphan processes get adopted by the \texttt{init()} process.
+\item
+  When a process terminates, there's some information left behind:
+  information about why it terminated. Is it because it turned exit? Or
+  because somebody cit \texttt{ctrl-c}? Or another signal? You might
+  wanna know these signals. 
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Zombies}}{Zombies}}\label{header-n244}
+
+\begin{itemize}
+\item
+  Example of a zombie
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ 6_zombie.c}
+\CommentTok{*/}
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    pid_t parent_pid = getpid();}
+\NormalTok{    printf(}\StringTok{"Starting id: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, parent_pid);}
+\NormalTok{    pid_t fork_pid = fork();}
+    
+    \ControlFlowTok{if}\NormalTok{ (fork_pid > }\DecValTok{0}\NormalTok{) \{	}\CommentTok{// Parent sleeps}
+\NormalTok{        sleep(}\DecValTok{20}\NormalTok{);}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{			}\CommentTok{// Child}
+\NormalTok{        printf(}\StringTok{"I am the child (%d). My parent is %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, getpid(), getppid());}
+\NormalTok{        sleep(}\DecValTok{10}\NormalTok{);}
+\NormalTok{        printf(}\StringTok{"death...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  The child is terminated but the parent is still alive because it
+  sleeps for 20 seconds instead of the child's 10 seconds.
+
+  One shell:
+
+\begin{verbatim}
+$ 6_zombie
+Starting id: 3451
+I am the child (3452). My parent 3451
+death...
+\end{verbatim}
+
+  Another Shell:
+
+\begin{verbatim}
+$ ps -j
+PID		PPID		STAT	COMMAND
+3451	3447		S+		6_zombie
+3452	3451		S+ 		6_zombie		
+# you had a command 6_zombie and it forked off another 
+# child so it has the same command name, fine.
+$ ps -j
+PID		PPID		STAT	COMMAND
+3451	3447		S+		6_zombie
+3452	3451		Z+		(6_zombie)
+# we waited until the child said "death...", and got a 
+# different formatting where the STAT of the child 
+# process is Z which means unscheduleable - its terminated
+# and further with (6_zombie). 
+\end{verbatim}
+\item
+  It's no longer alive but it's still around (it has not had its parent
+  wait for it) so it's called a zombie. If the parent never terminates,
+  the child stays a zombie for eternity. But eventually, either the
+  parent waits for the zombie, or the parent terminates and the zombie
+  gets adopted by \texttt{init()}. 
+\item
+  Zombies can be a problem if there is a horde of them because a horde
+  of them would mean that there was a whole horde of system information
+  being kept about a lot of terminated processes and that's just taking
+  up system resources. In principle, there are a fixed number of process
+  IDs. 
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{3. File
+System}}{3. File System}}\label{header-n260}
+
+\subsection{\texorpdfstring{\textbf{Links}}{Links}}\label{header-n261}
+
+\begin{itemize}
+\item
+  Underneath the file system, files are represented by \textbf{inodes}.
+  A file in the file system is basically a link to an inode. A
+  \textbf{hard link}, then, just creates another file with a link to the
+  same underlying inode. When you delete a file, it removes one link to
+  the underlying inode. The inode is only deleted (or
+  deletable/over-writable) when all links to the inode have been
+  deleted.
+\item
+  A \textbf{symbolic link} is a link to another name in the file system.
+\item
+  Once a hard link has been made the link is to the inode. Deleting,
+  renaming, or moving the original file will not affect the hard link as
+  it links to the underlying inode. Any changes to the data on the inode
+  is reflected in all files that refer to that inode. 
+\item
+  Hard links are only valid within the same File System. Symbolic links
+  can span file systems as they are simply the name of another file.
+\item
+  Create two files:
+
+\begin{verbatim}
+$ touch foo; touch bar
+\end{verbatim}
+
+  Enter some data into them:
+
+\begin{verbatim}
+$ echo "Cat" > foo
+$ echo "Dog" > bar
+\end{verbatim}
+
+  Let's create hard and soft links:
+
+\begin{verbatim}
+$ ln foo foo-hard
+$ ln -s bar bar-soft
+\end{verbatim}
+
+  Let's see what just happened:
+
+\begin{verbatim}
+$ ls -l
+
+foo
+foo-hard
+bar
+bar-soft -> bar
+\end{verbatim}
+
+  Changing the name of \texttt{foo} does not matter:
+
+\begin{verbatim}
+$ mv foo foo-new
+$ cat foo-hard
+Cat
+\end{verbatim}
+
+  \texttt{foo-hard} points to the inode, the contents, of the file -
+  that wasn't changed.
+
+\begin{verbatim}
+$ mv bar bar-new
+$ ls bar-soft
+bar-soft
+$ cat bar-soft  
+cat: bar-soft: No such file or directory
+\end{verbatim}
+
+  The contents of the file could not be found because the soft link
+  points to the name, that was changed, and not to the contents.
+
+  Likewise, If \texttt{foo} is deleted, \texttt{foo-hard} still holds
+  the contents; if \texttt{bar} is deleted, \texttt{bar-soft} is just a
+  link to a non-existing file.
+
+  \begin{figure}
+  \centering
+  \includegraphics{/home/gerardo/.config/Typora/typora-user-images/image-20210225204248979.png}
+  \caption{}
+  \end{figure}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{stat}}{stat}}\label{header-n287}
+
+\begin{itemize}
+\item
+  \texttt{stat()} is a Unix system call that returns file attributes
+  about an inode. As an example, Unix command ls uses this system call
+  to retrieve information on files that includes:
+
+  \begin{itemize}
+  \item
+    \texttt{atime}: time of last access (\texttt{ls\ -lu})
+  \item
+    \texttt{mtime}: time of last modification (\texttt{ls\ -l})
+  \end{itemize}
+\item
+  \texttt{ctime}: time of last status change (\texttt{ls\ -lc})
+\item
+  Example program
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ fileinfo.c}
+\CommentTok{ Display some information from the inode}
+\CommentTok{ Uses stat function and struct stat}
+\CommentTok{ */}
+
+\DataTypeTok{int}\NormalTok{ main(}\DataTypeTok{int}\NormalTok{ argc, }\DataTypeTok{char}\NormalTok{ *chargv[]) \{}
+    \KeywordTok{struct}\NormalTok{ stat info;}
+
+    \ControlFlowTok{if}\NormalTok{ (argc != }\DecValTok{2}\NormalTok{) \{}
+\NormalTok{        fprintf(stderr, }\StringTok{"usage: %s filename}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, argv[}\DecValTok{0}\NormalTok{]);}
+\NormalTok{        exit(FORMAT_ERROR);}
+\NormalTok{    \}}
+
+\NormalTok{    stat(argv[}\DecValTok{1}\NormalTok{], &info);}
+\NormalTok{    printf(}\StringTok{"    mode: %o}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, info.st_mode);			}\CommentTok{// type + mode}
+\NormalTok{    printf(}\StringTok{"   links: %u}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, info.st_nlink);		}\CommentTok{// no of links}
+\NormalTok{    printf(}\StringTok{" user_id: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, info.st_uid);			}\CommentTok{// user id}
+\NormalTok{    printf(}\StringTok{"group_id: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, info.st_gid);			}\CommentTok{// group id}
+\NormalTok{    printf(}\StringTok{"    size: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, (}\DataTypeTok{int}\NormalTok{)info.st_size);	}\CommentTok{// file size}
+\NormalTok{    printf(}\StringTok{" modtime: %d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, (}\DataTypeTok{int}\NormalTok{)info.st_mtime);	}\CommentTok{// modified}
+\NormalTok{    printf(}\StringTok{"    name: %s}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, argv[}\DecValTok{1}\NormalTok{]);				}\CommentTok{// filename}
+
+    \ControlFlowTok{return} \DecValTok{0}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  What's one piece of information that is missing from inode? The
+  filename! Why?
+
+  \begin{quote}
+  it can have lots of different names, it's represented by the inode but
+  the names are just whatever anyone wants to call them.
+  \end{quote}
+\item
+  How does \texttt{ls} work? What do you do the things it does?
+
+  \begin{quote}
+  read info from inode (\texttt{stat}). read directories, they are
+  special file types \texttt{opendir()}, \texttt{readdir()}
+  \end{quote}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Inodes}}{Inodes}}\label{header-n310}
+
+\begin{itemize}
+\item
+  A file system's i-node table contains one i-node (short for
+  \textbf{index node}) for each file residing in the file system.
+  I-nodes are identified numerically by their sequential location in the
+  i-node table. The information maintained in an i-node includes the
+  following:
+
+  \begin{itemize}
+  \item
+    File type (e.g., regular file, directory, symbolic link, character
+    device).
+  \item
+    Owner (also referred to as the user ID or UID) for the file.
+  \item
+    Group (also referred to as the group ID or GID) for the file.
+  \item
+    Three timestamps:
+
+    \begin{itemize}
+    \item
+      time of last access to the file (shown by \texttt{ls\ –lu}), 
+    \item
+      time of last modification of the file (the default time shown by
+      \texttt{ls\ –l}), 
+    \item
+      and time of last status change (last change to i-node information,
+      shown by \texttt{ls\ –lc}). As on other UNIX implementations, it
+      is notable that most Linux file systems don't record the creation
+      time of a file.
+    \end{itemize}
+  \item
+    Number of hard links to the file.
+  \item
+    Size of the file in bytes.
+  \item
+    Number of blocks actually allocated to the file, measured in units
+    of 512-byte blocks. There may not be a simple correspondence between
+    this number and the size of the file in bytes, since a file can
+    contain holes (Section 4.7), and thus require fewer allocated blocks
+    than would be expected according to its nominal size in bytes.
+  \item
+    Pointers to the data blocks of the file.
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Directories}}{Directories}}\label{header-n339}
+
+\begin{itemize}
+\item
+  The \texttt{opendir()} function opens a directory and returns a handle
+  that can be used to refer to the directory in later calls.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<dirent.h>}
+
+\CommentTok{/* Returns directory stream handle, or NULL on error */}
+\NormalTok{DIR *opendir(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ * dirpath );}
+\end{Highlighting}
+\end{Shaded}
+
+  The \texttt{opendir()} function opens the directory specified by
+  \texttt{dirpath} and returns a pointer to a structure of type DIR.
+  This structure is a so-called directory stream, which is a handle that
+  the caller passes to the other functions described below.
+\item
+  The \texttt{readdir()}function reads successive entries from a
+  directory stream.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<dirent.h>}
+
+\CommentTok{/* }
+\CommentTok{    Returns pointer to a statically allocated structure describing }
+\CommentTok{    next directory entry, or NULL on end-of-directory or error}
+\CommentTok{*/}
+\KeywordTok{struct}\NormalTok{ dirent *readdir(DIR * dirp );}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Each call to \texttt{readdir()} reads the next directory from the
+  directory stream referred to by \texttt{dirp} and returns a pointer to
+  a statically allocated structure of type \texttt{dirent}, containing
+  the following information about the entry:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{struct}\NormalTok{ dirent \{}
+\NormalTok{    ino_t d_ino;		}\CommentTok{/* File i-node number */}
+    \DataTypeTok{char}\NormalTok{ d_name[];		}\CommentTok{/* Null-terminated name of file */}
+\NormalTok{\};}
+\end{Highlighting}
+\end{Shaded}
+
+  This structure is overwritten on each call to \texttt{readdir()}.
+\item
+  Further information about the file referred to by \texttt{d\_name} can
+  be obtained by calling \texttt{stat()} on the pathname constructed
+  using the \texttt{dirpath} argument that was specified to
+  \texttt{opendir()} concatenated with (a slash and) the value returned
+  in the \texttt{d\_name} field.
+\item
+  On end-of-directory or error, \texttt{readdir()} returns NULL , in the
+  latter case setting \texttt{errno} to indicate the error. To
+  distinguish these two cases, we can write the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{errno = }\DecValTok{0}\NormalTok{;}
+\NormalTok{direntp = readdir(dirp);}
+\ControlFlowTok{if}\NormalTok{ (direntp == NULL) \{}
+    \ControlFlowTok{if}\NormalTok{ (errno != }\DecValTok{0}\NormalTok{) \{}
+        \CommentTok{/* Handle error */}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \CommentTok{/* We reached end-of-directory */}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Special
+Files}}{Special Files}}\label{header-n359}
+
+\begin{itemize}
+\item
+  If we want to filter out the error messages, we redirect standard
+  error to \texttt{/dev/null}:
+
+\begin{verbatim}
+$ find / -name foo 2> /dev/null
+\end{verbatim}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Read operations from \texttt{/dev/zero} return as many null characters
+  (\texttt{0x00}) as requested in the read operation. Unlike
+  \texttt{/dev/null}, \texttt{/dev/zero} may be used as a source, not
+  only as a sink for data. All write operations to\texttt{/dev/zero}
+  succeed with no other effects. However, \texttt{/dev/null} is more
+  commonly used for this purpose. 
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{4. UNIX
+I/O}}{4. UNIX I/O}}\label{header-n369}
+
+\subsection{\texorpdfstring{\textbf{File
+Descriptors}}{File Descriptors}}\label{header-n371}
+
+\begin{itemize}
+\item
+  When a file is opened or created by a process the kernel assigns a
+  position in the array called the file descriptor.
+\item
+  By convention Unix shells (although \emph{not} the kernel) employ the
+  following values:
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  File & File Descriptor & POSIX Constant\tabularnewline
+  \midrule
+  \endhead
+  Standard Input & 0 & \texttt{STDIN\_FILENO}\tabularnewline
+  Standard Output & 1 & \texttt{STDOUT\_FILENO}\tabularnewline
+  Standard Error & 2 & \texttt{STDERR}\tabularnewline
+  \bottomrule
+  \end{longtable}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Basic
+Calls}}{Basic Calls}}\label{header-n395}
+
+\begin{itemize}
+\item
+  \texttt{open()}: open or create a file for reading or writing
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ open(}\DataTypeTok{const} \DataTypeTok{char}\NormalTok{ *path, }\DataTypeTok{int}\NormalTok{ flags[, mode_t mode]); }
+
+\CommentTok{// One of these three must be included:}
+\NormalTok{O_RDONLY; 	}\CommentTok{// open for reading only}
+\NormalTok{O_WRONLY; 	}\CommentTok{// open for writing only}
+\NormalTok{O_RDWR; 	}\CommentTok{// open for reading and writing}
+
+\CommentTok{// The following are optional arguments}
+\NormalTok{O_APPEND; 	}\CommentTok{// append on each write}
+\NormalTok{O_CREAT; 	}\CommentTok{// create file if it does not exist: REQUIRES mode}
+\NormalTok{O_TRUNC; 	}\CommentTok{// truncate size to 0}
+
+\NormalTok{open(}\StringTok{"pathtofile"}\NormalTok{,O_WRONLY | O_CREAT, }\DecValTok{0666}\NormalTok{);}
+
+\CommentTok{// Returns file descriptor on success}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \texttt{close()}: detach the use of the file descriptor for a process
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ close(}\DataTypeTok{int}\NormalTok{ d);}
+\CommentTok{// arguments 	d: a file descriptor }
+\CommentTok{// returns:		0 on success (the file descriptor deleted) }
+\end{Highlighting}
+\end{Shaded}
+\item
+  \texttt{read()}: starts at the file's current offset, which is then
+  offset by the number of bytes read
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{ssize_t}\NormalTok{ read(}\DataTypeTok{int}\NormalTok{ d, }\DataTypeTok{void}\NormalTok{ *buf, }\DataTypeTok{size_t}\NormalTok{ nbytes); }
+\CommentTok{// arguments:	d: a file descriptor}
+\CommentTok{//				buf: buffer for storing bytes read}
+\CommentTok{//				nbytes: maximum number of bytes to read }
+\CommentTok{// returns: 	number of bytes read and placed in buf or 0 if end of file }
+\end{Highlighting}
+\end{Shaded}
+\item
+  \texttt{write()}: starts at the file's current offset, which is then
+  offset by the number of bytes written to the file
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{size_t}\NormalTok{ write(}\DataTypeTok{int}\NormalTok{ d, }\DataTypeTok{void}\NormalTok{ *buf, }\DataTypeTok{size_t}\NormalTok{ nbytes);}
+\CommentTok{// arguments 	d: a file descriptor}
+\CommentTok{//				buf: buffer for storing bytes to be written}
+\CommentTok{//				nbytes: maximum number of bytes to read }
+\CommentTok{// returns:		number of bytes written }
+\end{Highlighting}
+\end{Shaded}
+\item
+  \texttt{lseek()}: Every file descriptor has an associated
+  \emph{current file offset}, a number of bytes from the beginning of
+  the file. Read and write operations normally start at the current
+  offset and cause the offset to be incremented the number of bytes read
+  or written. \texttt{lseek} explicitly repositions this offset value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{off_t lseek(}\DataTypeTok{int}\NormalTok{ d, off_t offset, }\DataTypeTok{int}\NormalTok{ base);}
+\CommentTok{// arguments:	 	d: a file descriptor}
+\CommentTok{//					offset:  the number of bytes to be offset}
+\CommentTok{//					base:    the position from which the bytes will be offset:}
+\CommentTok{//					SEEK_SET:    offset bytes from beginning of the file.}
+\CommentTok{//					SEEK_CUR:    offset bytes from current value of offset.}
+\CommentTok{//					SEEK_}\RegionMarkerTok{END}\CommentTok{:    offset bytes from end of the file. }
+\CommentTok{// returns:			The resulting offset location as measured in bytes from the beginning of the file. }
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{umask}}{umask}}\label{header-n413}
+
+\begin{itemize}
+\item
+  \texttt{umask} - set file mode creation mask
+\item
+  Setting \texttt{umask(077)} ensures that any files created by the
+  program will only be accessible to their owner (0 in first position =
+  all permissions potentially available) and nobody else (7 in
+  second/third position = all permissions disallowed to group/other).
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Pipes}}{Pipes}}\label{header-n420}
+
+\begin{itemize}
+\item
+  Create a pipe:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{createPipe.c}
+\CommentTok{Create a pipe, write and read.}
+
+\CommentTok{No error checking, for clarity.}
+\CommentTok{*/}
+
+\PreprocessorTok{#include }\ImportTok{<string.h>}
+\PreprocessorTok{#include }\ImportTok{<unistd.h>}
+
+\DataTypeTok{const} \DataTypeTok{int}\NormalTok{ MAXLINE = }\DecValTok{80}\NormalTok{;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \DataTypeTok{char}\NormalTok{ mesg[] = }\StringTok{"Listen to me!}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;	}\CommentTok{// string to write}
+    \DataTypeTok{char}\NormalTok{ line[MAXLINE];					}\CommentTok{// buffer to read into}
+    \DataTypeTok{int}\NormalTok{ fd[}\DecValTok{2}\NormalTok{];							}\CommentTok{// file descriptors for pipe}
+    
+\NormalTok{    pipe(fd);							}\CommentTok{// create the pipe}
+    
+\NormalTok{    write(fd[}\DecValTok{1}\NormalTok{], mesg, strlen(mesg));	}\CommentTok{// Send the mesage to pipe}
+    \DataTypeTok{int}\NormalTok{ count = read(fd[}\DecValTok{0}\NormalTok{], line, MAXLINE);	}\CommentTok{// Read it back}
+    
+    \CommentTok{// Display the read msg to standard output}
+\NormalTok{    write(STDOUT_FILENO, line, count);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{dup and
+dup2}}{dup and dup2}}\label{header-n426}
+
+\begin{itemize}
+\item
+  \texttt{dup} and \texttt{dup2} duplicate the contents of an existing
+  file descriptor. Remember, a file descriptor is the index of an array
+  which contains a pointer to the file table. These functions allow a
+  second file descriptor to index a pointer to the same file table. The
+  difference is that \texttt{dup} takes a single argument, the file
+  descriptor you want to duplicate, and returns a new file descriptor
+  which is guaranteed to be the lowest available. \texttt{dup2} gives
+  you more control over the new file descriptor: it takes two arguments,
+  an already opened file descriptor and a new file descriptor, and
+  directs the new file descriptor to point to the same file table. This
+  is especially valuable when we want to create pipes between programs.
+  If the new file descriptor is actually being used, \texttt{dup2}
+  closes the file descriptor first, then reassigns it; if the two file
+  descriptors are the same, nothing occurs.
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Implementing I/O
+Redirection}}{Implementing I/O Redirection}}\label{header-n431}
+
+\begin{itemize}
+\item
+  Do this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{  duping.c}
+\CommentTok{  demonstrates redirection of standard input by}
+\CommentTok{  1) opening a file.}
+\CommentTok{  2) closing file descriptor 0}
+\CommentTok{  3) duping the original fd}
+
+\CommentTok{  Note that error checking was omitted for readability.}
+\CommentTok{  You should provide it!}
+\CommentTok{ */}
+
+\PreprocessorTok{#include }\ImportTok{<unistd.h>}\PreprocessorTok{ }\CommentTok{// close}
+\PreprocessorTok{#include }\ImportTok{<fcntl.h>}\PreprocessorTok{  }\CommentTok{// open}
+\PreprocessorTok{#include }\ImportTok{<stdlib.h>}\PreprocessorTok{ }\CommentTok{// exit}
+
+\DataTypeTok{const} \DataTypeTok{int}\NormalTok{ BUFFSIZE = }\DecValTok{100}\NormalTok{;}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \DataTypeTok{char}\NormalTok{ line[BUFFSIZE];}
+
+    \CommentTok{// read from the console and print to the console}
+    \CommentTok{// (same as in redirect.c)}
+    \DataTypeTok{int}\NormalTok{ n = read(}\DecValTok{0}\NormalTok{, line, BUFFSIZE}\DecValTok{-1}\NormalTok{);}
+\NormalTok{    line[n] = }\CharTok{'\textbackslash{}n'}\NormalTok{;}
+\NormalTok{    write(}\DecValTok{1}\NormalTok{, line, n+}\DecValTok{1}\NormalTok{);}
+
+    \CommentTok{// Open the file before redirecting}
+    \DataTypeTok{int}\NormalTok{ fd = open(}\StringTok{"/etc/passwd"}\NormalTok{, O_RDONLY);}
+
+    \CommentTok{// Redirect standard input to come from the file}
+\NormalTok{    close(STDIN_FILENO);   }\CommentTok{// First closing standard input}
+\NormalTok{    dup(fd);    }\CommentTok{// and then dup'ing the file descriptor into the}
+                \CommentTok{// lowest free fd. Returns new fd or -1.}
+
+    \CommentTok{// and close the file's original descriptor as we don't want}
+    \CommentTok{// unused open file descriptors.}
+\NormalTok{    close(fd); }
+
+    \CommentTok{// again read from standard input, now the file, }
+    \CommentTok{// and print to the console. Same code as in the beginning.}
+    \CommentTok{// (and same as in redirect.c)}
+\NormalTok{    n = read(}\DecValTok{0}\NormalTok{, line, BUFFSIZE}\DecValTok{-1}\NormalTok{);}
+\NormalTok{    line[n] = }\CharTok{'\textbackslash{}n'}\NormalTok{;}
+\NormalTok{    write(}\DecValTok{1}\NormalTok{, line, n+}\DecValTok{1}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\item
+  There is one issue: we're depending on the fact that when we
+  \texttt{dup()} a file descriptor it's going to use the lowest
+  available number. In this case, we can be confident that it'll be
+  \texttt{0} because that's the one we're closing. 
+\item
+  But what if it were something other than \texttt{0} that we were
+  talking about? Or what if some other portion of the program might be
+  trying to make use of some other target file descriptor? How can we
+  guarantee that we're going to duplicate our file descriptor into a
+  particular one?
+
+  \begin{quote}
+  There's one other call: \texttt{dup2()} which says "i have file
+  descriptor that's open, i want to duplicate that file descriptor into
+  this other one."
+  \end{quote}
+\item
+  Example using \texttt{dup2()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{...}
+\CommentTok{// Open the file before redirecting}
+\CommentTok{// (same as duping.c)}
+\DataTypeTok{int}\NormalTok{ fd = open(}\StringTok{"/etc/passwd"}\NormalTok{, O_RDONLY);}
+
+\CommentTok{// redirect standard input to come from the file}
+\CommentTok{// Now there's no ambiguity as to which fd to use as the target}
+\NormalTok{dup2(fd, STDIN_FILENO);}
+
+\CommentTok{// and close the file's original descriptor as we don't want}
+\CommentTok{// unused open file descriptors. }
+\CommentTok{// (same as duping.c)}
+\NormalTok{close(fd);}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+\item
+  It says "okay you can have file descriptor \texttt{0}, if it's not
+  already closed, i will close it for you". So \texttt{dup2()} closes
+  the 2nd argument and duplicates the first argument into it.
+\item
+  And that's all there is to redirecting I/O : fooling your system by
+  saying that the file descriptor that you want to be using -\/- whether
+  it's for input or output or stderr -\/- is actually a file. 
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Holes}}{Holes}}\label{header-n450}
+
+\begin{itemize}
+\item
+  If the place we end up is before the beginning of the file or after
+  the end of the file, what would you expect to have happened. For
+  example, say seek 10 bytes before the beginning or 10 byes after the
+  end.
+
+  \begin{itemize}
+  \item
+    seeking after the end of a file is perfectly legal. But then you end
+    up with a \textbf{hole} which is a range of bytes that the file
+    system doesn't allocate space for. 
+  \item
+    seeking before the start of a file is an error 
+  \end{itemize}
+\item
+  Why is seeking before the start of a file an error but not seeking
+  past the end?
+
+  \begin{quote}
+  A: It doen't make sense to rewrite the 10 direct block pointers
+  because you'll have to move everything else over by 10 bytes.
+  \end{quote}
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{5.
+Signals}}{5. Signals}}\label{header-n464}
+
+\subsection{\texorpdfstring{\textbf{What is a
+Signal?}}{What is a Signal?}}\label{header-n465}
+
+\begin{itemize}
+\item
+  A signal is a notification to a process that an event has occurred.
+  Signals are sometimes described as software interrupts. One process
+  can (if it has suitable permissions) send a signal to another process.
+  In this use, signals can be employed as a synchronization technique,
+  or even as a primitive form of interprocess communication (IPC).
+\item
+  Upon delivery of a signal, a process carries out one of the following
+  default actions, depending on the signal:
+
+  \begin{itemize}
+  \item
+    The signal is \textbf{ignored}; that is, it is discarded by the
+    kernel.
+  \item
+    The process is \textbf{terminated} (killed).
+  \item
+    A \textbf{core dump file} is generated, and the process is
+    terminated. A core dump file contains an image of the virtual memory
+    of the process, which can be loaded into a debugger.
+  \item
+    The process is \textbf{stopped}---execution of the process is
+    suspended.
+  \item
+    Execution of the \textbf{process} is resumed after previously being
+    stopped.
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Signal
+Disposition}}{Signal Disposition}}\label{header-n483}
+
+\begin{itemize}
+\item
+  Instead of accepting the default for a particular signal, a program
+  can change the action that occurs when the signal is delivered. This
+  is known as setting the disposition of the signal. A program can set
+  one of the following dispositions for a signal:
+
+  \begin{itemize}
+  \item
+    The default action should occur, \texttt{SIG\_DEF}.
+  \item
+    If the disposition is set to \texttt{SIG\_IGN}, then the signal is
+    ignored
+  \end{itemize}
+\item
+  UNIX systems provide two ways of changing the disposition of a signal:
+  \texttt{signal()} and \texttt{sigaction()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ ( *signal(}\DataTypeTok{int}\NormalTok{ sig , }\DataTypeTok{void}\NormalTok{ (* handler )(}\DataTypeTok{int}\NormalTok{)) ) (}\DataTypeTok{int}\NormalTok{);}
+\CommentTok{// Returns previous signal disposition on success, or SIG_ERR on error}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Signal
+Handlers}}{Signal Handlers}}\label{header-n496}
+
+\begin{itemize}
+\item
+  Signal demo 0
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ sigdemo0.c}
+\CommentTok{*/}
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \ControlFlowTok{while}\NormalTok{(}\DecValTok{1}\NormalTok{) \{}
+\NormalTok{        puts(}\StringTok{"Hanging out"}\NormalTok{);}
+\NormalTok{        sleep(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Shell:
+
+\begin{verbatim}
+$ sigdemo0 
+hanging out
+hanging out
+hanging out
+^C				# Stops when we hit CTRL-C
+\end{verbatim}
+\item
+  Signal Demo 1:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{/*}
+\CommentTok{ sigdemo1.c}
+\CommentTok{ catches SIGINT}
+\CommentTok{*/}
+
+\KeywordTok{typedef} \DataTypeTok{void}\NormalTok{ (*sig_hanlder_t) (}\DataTypeTok{int}\NormalTok{ num);}
+
+\CommentTok{/* Signal handler) */}
+\DataTypeTok{void}\NormalTok{ myHanlder(}\DataTypeTok{int}\NormalTok{ signalNum) \{}
+\NormalTok{    puts(}\StringTok{"ouch!! Stop that !!!"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+    \CommentTok{// Set handler for SIGINT, and remember the prior disposition}
+\NormalTok{    sig_handler_t old_handler = signal(SIGINT, myHandler);}
+
+    \CommentTok{// Hang out}
+    \ControlFlowTok{while}\NormalTok{(}\DecValTok{1}\NormalTok{) \{}
+\NormalTok{        puts(}\StringTok{"Hanging out"}\NormalTok{);}
+\NormalTok{        sleep(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+
+    \CommentTok{// Restoring the original disposition for SIGINT}
+\NormalTok{    signal(SIGINT, old_hadler);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Shell:
+
+\begin{verbatim}
+$ sigdemo1
+Hanging out
+Hanging out
+Hanging out
+^C ouch!! Stop that !!! # CTRL-C doesn't stop it
+Hanging out
+Hanging out
+^\ Quit: 3				# but CTRL-\ does
+\end{verbatim}
+
+  It doesn't handle signal \texttt{3}.
+\item
+  Signal Demo 2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ sigquit_handler(}\DataTypeTok{int}\NormalTok{ signalNum) \{}
+\NormalTok{    puts(}\StringTok{"I won't quit!!!"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    signal(SIGINT, SIGIGN);				}\CommentTok{// Ignore SIGINT}
+\NormalTok{    signal(SIGQUIT, sigquit_hanlder);	}\CommentTok{// Handle ^\textbackslash{}}
+
+\NormalTok{    puts(}\StringTok{"you can't stop me!"}\NormalTok{);}
+
+    \CommentTok{// Hang out}
+    \ControlFlowTok{while}\NormalTok{(}\DecValTok{1}\NormalTok{) \{}
+\NormalTok{        puts(}\StringTok{"Haha!!!"}\NormalTok{);}
+\NormalTok{        sleep(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Shell:
+
+\begin{verbatim}
+$ sigdemo1
+you cant stop me!
+Haha!!!
+Haha!!!
+Haha!!!
+^C Haha!!!
+Haha!!!
+^\ i wont quit!
+Haha!!!
+Haha!!!
+\end{verbatim}
+
+  You have to do:
+
+\begin{verbatim}
+$ kill (process_id)
+\end{verbatim}
+\item
+  Signal Demo 3:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{void}\NormalTok{ sigquit_handler(}\DataTypeTok{int}\NormalTok{ signalNum) \{}
+\NormalTok{    puts(}\StringTok{"I won't quit!!!"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{void}\NormalTok{ siqterm_Handler(}\DataTypeTok{int}\NormalTok{ signalNum) \{}
+\NormalTok{    puts(}\StringTok{"cant kill be that easily!!!"}\NormalTok{);}
+\NormalTok{\}}
+
+\DataTypeTok{int}\NormalTok{ main() \{}
+\NormalTok{    signal(SIGINT, SIGIGN);				}\CommentTok{// Ignore SIGINT}
+\NormalTok{    signal(SIGQUIT, siqquit_hanlder);	}\CommentTok{// Handle ^\textbackslash{}}
+\CommentTok{    signal(SIGTERM, siqterm_Handler): 	// Handle $ kill (process)}
+
+\NormalTok{    puts(}\StringTok{"you can't stop me!"}\NormalTok{);}
+
+    \CommentTok{// Hang out}
+    \ControlFlowTok{while}\NormalTok{(}\DecValTok{1}\NormalTok{) \{}
+\NormalTok{        puts(}\StringTok{"Haha!!!"}\NormalTok{);}
+\NormalTok{        sleep(}\DecValTok{1}\NormalTok{);}
+\NormalTok{    \}}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Sending a
+Signal}}{Sending a Signal}}\label{header-n520}
+
+\begin{itemize}
+\item
+  Universal solution for killing any process:
+
+\begin{verbatim}
+$ kill -KILL (process_id)
+or
+$ kill -9 (process_id)
+\end{verbatim}
+\item
+  Kill commands:
+
+\begin{verbatim}
+$ kill -l
+ 1) SIGHUP	 	2) SIGINT	 3) SIGQUIT	 	4) SIGILL	 5) SIGTRAP
+ 6) SIGABRT	 	7) SIGBUS	 8) SIGFPE	 	9) SIGKILL	10) SIGUSR1
+11) SIGSEGV		12) SIGUSR2	13) SIGPIPE		14) SIGALRM	15) SIGTERM
+16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT		19) SIGSTOP	20) SIGTSTP
+21) SIGTTIN		22) SIGTTOU	23) SIGURG		24) SIGXCPU	25) SIGXFSZ
+26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+31) SIGSYS
+\end{verbatim}
+\item
+  Sending Signals in C
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ kill(pid_t pid, }\DataTypeTok{int}\NormalTok{ sig);}
+\CommentTok{// The pid argument identifies one or more processes to which the signal }
+\CommentTok{// specified by sig is to be sent.}
+\CommentTok{// 		If pid is greater than 0, the signal is sent to the process with the }
+\CommentTok{// 		process ID specified by pid.}
+\CommentTok{// 		If pid equals 0, the signal is sent to every process in the same process}
+\CommentTok{//		group as the calling process, including the calling process itself.}
+\end{Highlighting}
+\end{Shaded}
+\item
+  \textbf{Slow I/O}: Any operation that can block indefinitely.
+
+  \begin{itemize}
+  \item
+    Reading from a pipe. reading from \texttt{stdin}, reading from
+    network.
+  \item
+    Writing to something that's full (pipes)
+  \item
+    Opening a FIFO
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Signal
+Blocking}}{Signal Blocking}}\label{header-n542}
+
+\begin{itemize}
+\item
+  We can do something else with signals: if we don't want to handle it
+  \emph{right} away but also don't want to ignore it forever. We can
+  block the signal until we can handle it. We can block a signal by
+  setting up a signal mask.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ sigprocmask(}\DataTypeTok{int}\NormalTok{ how, }\DataTypeTok{const}\NormalTok{ sigset_t *set, sigset_t *oldset);}
+\end{Highlighting}
+\end{Shaded}
+
+  What is \texttt{int\ how}?
+
+  \begin{itemize}
+  \item
+    \texttt{SIG\_BLOCK}: the set of blocked signals is the union of the
+    current set and the \emph{set} argument.
+  \item
+    \texttt{SIG\_UNBLOCK}: the signals in \emph{set} are removed from
+    the current set of blocked signals. It is permissible to attempt to
+    unblock a signal which is not blocked.
+  \item
+    \texttt{SIG\_SETMASK}: the set of blocked signals is set to the
+    argument \emph{set}.
+  \end{itemize}
+
+  What is \texttt{sigset\_t\ *oldset}?
+
+  \begin{itemize}
+  \item
+    a pointer to the current set before modifying so we can put it back
+    when you're done.
+  \end{itemize}
+
+  \texttt{sigset\_t} is the set of the 31 signals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ sigemptyset(sigset_t*); 	}\CommentTok{// clear all}
+\DataTypeTok{int}\NormalTok{ sigfillset(sigset_t*);		}\CommentTok{// set all}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Long
+Jumps}}{Long Jumps}}\label{header-n562}
+
+\begin{itemize}
+\item
+  Q: what's the signal mask after a long jump?
+
+  \begin{quote}
+  A: whatever it was just before the long jump
+  \end{quote}
+
+  Q: is that what you want?
+
+  \begin{quote}
+  A: to give you a choice when setting up the jump buffer, we introduce
+  \texttt{sigsetjmp} and \texttt{siglongjmp}.
+  \end{quote}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Implementing
+sleep}}{Implementing sleep}}\label{header-n572}
+
+\begin{itemize}
+\item
+  Initial code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ sig_alrm(}\DataTypeTok{int}\NormalTok{ signo) \{\}}
+
+\DataTypeTok{unsigned} \DataTypeTok{int}\NormalTok{ toDream(}\DataTypeTok{unsigned} \DataTypeTok{int}\NormalTok{ nsecs) \{}
+\NormalTok{    signal(SIGALRM, sig_alrm);}
+\NormalTok{    alarm(nsecs);		}\CommentTok{// start the timer}
+\NormalTok{    pause();			}\CommentTok{// next caught signal wakes us up}
+    \ControlFlowTok{return}\NormalTok{ alarm(}\DecValTok{0}\NormalTok{);	}\CommentTok{// return timer, return unslept time}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  Q: What happens if there was already an alarm set?
+
+  \begin{quote}
+  A: If there was an alarm set and its further along, you might want to
+  remember how much further it is, set up your own alarm, deal with it,
+  and turn the other alarm back on with the correct amount of time.
+
+  Another would be to save the disposition and put it back to what it
+  was before we return.
+  \end{quote}
+
+  Q: What about the race condition?
+
+  \begin{quote}
+  A: Say I want an alarm in 2 seconds. Before you get to call
+  \texttt{pause()} you get a context switch, and for some weird reason,
+  you don't get back scheduled to run again for more than 2 seconds.
+  While you're not running, the \texttt{SIGALRM} got send to you. So
+  when you're finally scheduled, your handler fires off to do what it's
+  supposed to do before you even had a chance to run \texttt{pause()}.
+  You then call \texttt{pause()} and you're gonna block forever. It's an
+  odd case but in principle, it can happen.
+  \end{quote}
+\item
+  Fixing the race condition
+
+  We have to figure out what this process is currently blocking on; we
+  don't want to change that. We then want to add into that set
+  \texttt{SIGALRM}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// Before we set our alarm, block SIGALRM}
+\NormalTok{sigemptyset(&newmask);}
+\NormalTok{sigaddset(&newmask, SIGALRM);}
+
+\CommentTok{// Add SIGALRM, remembering prior mask state}
+\NormalTok{sigprocmask(SIG_BLOCK, &newmask, &oldmask);}
+
+\CommentTok{// Set the alarm, while blocking SIGALRM}
+\NormalTok{alarm(nsecs);}
+
+\CommentTok{// Make sure SIGALRM won't be blocked while suspended.}
+\NormalTok{suspmask = oldmask;}
+\NormalTok{sigdelset(&suspmask, SIGALRM);}
+
+\CommentTok{// Wait for any signal to be caught that wasn't being blocked before.}
+\CommentTok{// This function is the same as pause but it gies us a chance to pass}
+\CommentTok{// in an argument the address of a signal mask.}
+\NormalTok{sigsuspend(&suspmask);}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\section{\texorpdfstring{\textbf{6. UNIX Command
+Line}}{6. UNIX Command Line}}\label{header-n589}
+
+\subsection{\texorpdfstring{\textbf{Common
+Utilities}}{Common Utilities}}\label{header-n591}
+
+\begin{itemize}
+\item
+  \texttt{ls} -- list directories
+\item
+  \texttt{mkdir}, \texttt{rmdir} -- make or remove a directory
+\item
+  \texttt{cd}, \texttt{pwd} -- change / print the current working
+  directory
+\item
+  \texttt{cp} -- make a copy of a file
+\item
+  \texttt{mv} -- move/rename a file
+\item
+  \texttt{rm} -- remove a file
+\item
+  \texttt{cat} -- concatenate files, also used to display a short file
+\item
+  \texttt{more} (or less) -- display a {[}large{]} file, one screen at a
+  time.
+\item
+  \texttt{man} -- look up manual pages. Use it often! (Also, try info.)
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Less Common but still
+important}}{Less Common but still important}}\label{header-n612}
+
+\begin{itemize}
+\item
+  \texttt{gcc} -- compile a C program 
+\item
+  \texttt{make} -- build a project 
+\item
+  \texttt{grep} -- find lines that match a regular expression 
+\item
+  \texttt{gdb} -- debugger
+\item
+  \texttt{find} -- where did I put it?
+\item
+  \texttt{chmod} -- change file permissions
+\item
+  \texttt{echo} -- print to stdout
+\item
+  \texttt{diff} -- differences between files
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Globbing - used to match file
+names}}{Globbing - used to match file names}}\label{header-n631}
+
+\begin{itemize}
+\item
+  An asterisk matches any string
+
+  \begin{itemize}
+  \item
+    \texttt{ls\ *.c}
+  \end{itemize}
+\item
+  A question mark matches a single character
+
+  \begin{itemize}
+  \item
+    \texttt{ls\ ?.c}
+  \end{itemize}
+\item
+  Square brackets can specify a "character class":
+
+  \begin{itemize}
+  \item
+    \texttt{ls\ {[}abcd{]}*.c}
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{I/O Redirection:
+input}}{I/O Redirection: input}}\label{header-n649}
+
+\begin{itemize}
+\item
+  Simple:
+
+\begin{verbatim}
+$ mail jsterling@poly.edu < Jabbercoky.txt
+\end{verbatim}
+\end{itemize}
+
+\begin{itemize}
+\item
+  "Here docs"
+
+\begin{verbatim}
+$ mail jsterling@poly.edu << blah
+this is the stuff before blah
+and more stuff
+blah
+\end{verbatim}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{I/O Redirection:
+output}}{I/O Redirection: output}}\label{header-n661}
+
+\begin{itemize}
+\item
+  Standard Output
+
+\begin{verbatim}
+$ ls > outputfile  # replaces outputfile
+$ ls >> outputfile # appends to outputfile
+\end{verbatim}
+\item
+  Standard error
+
+\begin{verbatim}
+$ myProgram 2> errorFile
+\end{verbatim}
+\item
+  Standard output \emph{and} standard error to the same file. Might
+  \emph{try} one of:
+
+\begin{verbatim}
+$ myProgram 2> aFile > aFile
+$ myProgram > aFile 2> aFile
+\end{verbatim}
+
+  But these don't work. Correct way is either:
+
+\begin{verbatim}
+$ myProgram > aFile 2>&1
+$ myProgram &> aFile
+\end{verbatim}
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{Piping}}{Piping}}\label{header-n676}
+
+\begin{itemize}
+\item
+  Piping allows the output of one process to be fed into another, in the
+  shell \texttt{\textbar{}} is used. If a command has a lot of output,
+  feed it to \texttt{more} or \texttt{less}:
+
+\begin{verbatim}
+$ dmesg | less
+$ dmesg | more
+\end{verbatim}
+\item
+  Getting a count of lines:
+
+\begin{verbatim}
+ps ax | wc -l
+\end{verbatim}
+\item
+  Spell checker:
+
+\begin{verbatim}
+$ tr -d '.,;:"\!\[]()?' | tr '\t' ' ' | tr ' ' '\n' \
+    | tr '[A-Z]' '[a-z]' \
+    | sort | uniq | comm -23 - /user/dict/words
+\end{verbatim}
+\end{itemize}
+
+\end{document}
